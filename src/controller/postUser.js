@@ -2,8 +2,6 @@ const { request, response } = require("express");
 const { db } = require('../../db');
 const { body, validationResult } = require('express-validator');
 
-
-
 const validateUser = [
     body('nombre').notEmpty(),
     body('apellido').notEmpty(),
