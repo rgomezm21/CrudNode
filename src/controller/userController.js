@@ -1,13 +1,5 @@
 const { request, response } = require("express");
 const { db } = require('../../db')
-const { body, validationResult } = require('express-validator');
-
-const validateUser = [
-    body('nombre').notEmpty(),
-    body('apellido').notEmpty(),
-    body('edad').isInt({ min: 18 }),
-    body('fecha_nacimiento').isISO8601(),
-  ];
 
 const getUser = async (req = request, res = response) => {
     db.all('SELECT * FROM rgbase;', (err, rgbase) => {
@@ -81,7 +73,6 @@ const deleteUser = async (req = request, res = response) => {
 }
 
 module.exports = {
-    validateUser,
     getUser,
     getUserId,
     createUser,
