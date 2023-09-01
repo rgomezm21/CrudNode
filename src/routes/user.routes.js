@@ -7,10 +7,12 @@ const { putUser } = require('../controller/putUser');
 
 const router = Router()
 router.get('/api/users', getUser);
-router.post('/api/users', validateUser, postUser);
-router.delete('/api/users/:idOrName', deleteUser)
 router.get('/api/users/:idOrName', getUserId)
+router.post('/api/users', validateUser, postUser);
 router.put('/api/users/:id', validateUser, putUser)
+router.delete('/api/users/:idOrName', deleteUser)
+
+
 module.exports = {
     userRoutes: router
 }
