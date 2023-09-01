@@ -17,7 +17,6 @@ const getUserId = async (req = request, res = response) => {
     );
 }
 
-
 module.exports = {
     getUserId
 }

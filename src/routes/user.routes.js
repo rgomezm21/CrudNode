@@ -5,8 +5,6 @@ const { postUser, validateUser } = require('../controller/postUser');
 const { putUser } = require('../controller/putUser');
 const { deleteUser } = require('../controller/deleteUser');
 
-
-
 const router = Router()
 router.get('/api/users', getUser);
 router.get('/api/users/:idOrName', getUserId)
