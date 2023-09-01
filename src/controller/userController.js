@@ -1,5 +1,7 @@
 const { request, response } = require("express");
 const { db } = require('../db')
+const { validateUser} = require('../middlewares/validateUser') 
+const { validationResult } = require('express-validator');
 
 const getUser = async (req = request, res = response) => {
     db.all('SELECT * FROM rgbase;', (err, rgbase) => {
@@ -28,6 +30,10 @@ const getUserId = async (req = request, res = response) => {
 }
 
 const createUser = async (req = request, res = response) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        return res.status(400).json({ errors: "los campos no pueden estar vacios" });
+      }
     const { nombre, apellido, edad, fecha_nacimiento } = req.body;
     db.run('INSERT INTO rgbase (nombre, apellido, edad, fecha_nacimiento) VALUES (?, ?, ?, ?)',
         [nombre, apellido, edad, fecha_nacimiento],
@@ -43,6 +49,10 @@ const createUser = async (req = request, res = response) => {
 }
 
 const updateUser = async (req = request, res = response) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        return res.status(400).json({ errors: "los campos no pueden estar vacios" });
+      }
     const userId = req.params.id;
     const {nombre, apellido, edad, fecha_nacimiento} = req.body;
     db.run('UPDATE rgbase SET nombre = ?, apellido = ?, edad = ?, fecha_nacimiento = ? WHERE id = ?',
