@@ -1,6 +1,15 @@
 const { request, response } = require("express");
-const { db } = require('../../db')
+const { db } = require('../../db');
+const { body, validationResult } = require('express-validator');
 
+
+
+const validateUser = [
+    body('nombre').notEmpty(),
+    body('apellido').notEmpty(),
+    body('edad').isInt({ min: 18 }),
+    body('fecha_nacimiento').isISO8601(),
+  ];
 
 const postUser = async (req = request, res = response) => {
     const { nombre, apellido, edad, fecha_nacimiento } = req.body;
@@ -19,5 +28,6 @@ const postUser = async (req = request, res = response) => {
 }
 
 module.exports = {
-    postUser
+    postUser,
+    validateUser
 }

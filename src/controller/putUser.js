@@ -1,5 +1,15 @@
 const { request, response } = require('express');
 const { db } = require('../../db');
+const { body, validationResult } = require('express-validator');
+
+
+
+const validateUser = [
+    body('nombre').notEmpty(),
+    body('apellido').notEmpty(),
+    body('edad').isInt({ min: 18 }),
+    body('fecha_nacimiento').isISO8601(),
+  ];
 
 const putUser = async (req = request, res = response) => {
     const userId = req.params.id;
@@ -17,5 +27,6 @@ const putUser = async (req = request, res = response) => {
 }
 
 module.exports = {
-    putUser
+    putUser,
+    validateUser
 }

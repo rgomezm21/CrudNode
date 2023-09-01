@@ -1,20 +1,14 @@
 const { Router } = require('express')
 const { getUser } = require('../controller/getUser')
-const { postUser } = require('../controller/postUser')
+const { postUser, validateUser } = require('../controller/postUser')
 const { deleteUser } = require('../controller/deleteUser');
 const { getUserId } = require('../controller/getUserId');
 const { putUser } = require('../controller/putUser');
-const { body, validationResult } = require('express-validator');
 
 
 
 
-const validateUser = [
-    body('nombre').notEmpty(),
-    body('apellido').notEmpty(),
-    body('edad').isInt({ min: 18 }),
-    body('fecha_nacimiento').isISO8601(),
-  ];
+
 
 const router = Router()
 
