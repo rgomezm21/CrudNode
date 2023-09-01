@@ -1,15 +1,11 @@
 const { Router } = require('express');
-const { getUser } = require('../controller/getUser');
-const { getUserId } = require('../controller/getUserId');
-const { postUser, validateUser } = require('../controller/postUser');
-const { putUser } = require('../controller/putUser');
-const { deleteUser } = require('../controller/deleteUser');
+const { validateUser,getUser, getUserId, createUser, updateUser, deleteUser } = require('../controller/userController');
 
 const router = Router()
 router.get('/api/users', getUser);
 router.get('/api/users/:idOrName', getUserId)
-router.post('/api/users', validateUser, postUser);
-router.put('/api/users/:id', validateUser, putUser)
+router.post('/api/users', validateUser, createUser)
+router.put('/api/users/:id', validateUser, updateUser);
 router.delete('/api/users/:idOrName', deleteUser)
 
 
