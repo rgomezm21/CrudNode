@@ -1,6 +1,5 @@
 const { request, response } = require("express");
 const { db } = require('../db')
-const { validateUser} = require('../middlewares/validateUser') 
 const { validationResult } = require('express-validator');
 
 const getUser = async (req = request, res = response) => {
@@ -31,18 +30,16 @@ const getUserId = async (req = request, res = response) => {
 
 const createUser = async (req = request, res = response) => {
     const errors = validationResult(req);
-    if (!errors.isEmpty()) {
+    if (errors.isEmpty()) {
         return res.status(400).json({ errors: "los campos no pueden estar vacios" });
       }
     const { nombre, apellido, edad, fecha_nacimiento } = req.body;
     db.run('INSERT INTO rgbase (nombre, apellido, edad, fecha_nacimiento) VALUES (?, ?, ?, ?)',
         [nombre, apellido, edad, fecha_nacimiento],
         function (err) {
-  
             if (err) {
                 return res.status(500).json({ error: 'Error al agregar un nuevo usuario' });
             }
-
             return res.json({ message: 'User created', userId: this.lastID });
         }
     );
