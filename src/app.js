@@ -29,7 +29,7 @@ const app = express();
 const PORT = process.env.PORT || 5000;
 
 app.use(cors({
-    origin: 'http://localhost:3000',
+    origin: '*',
     methods: ['GET', 'POST', 'PUT', 'DELETE'], // Permitir métodos específicos
     allowedHeaders: ['Content-Type', 'Authorization'], // Permitir encabezados personalizados
     credentials: true, // Permitir el uso de credenciales (cookies, autenticación)
