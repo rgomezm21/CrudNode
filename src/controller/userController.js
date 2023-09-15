@@ -28,6 +28,18 @@ const getUserId = async (req = request, res = response) => {
     );
 }
 
+const search = async (req, res) => {
+    const search = req.params.search
+
+    db.all(`SELECT * FROM rgbase WHERE producto like '%${search}%' or cliente like '%${search}%';`, (err, rgbase) => {
+        if (err) {
+            return res.status(500).json({ error: 'No se encontro registro' });
+        }
+
+        res.json(rgbase)
+    })
+}
+
 const createUser = async (req = request, res = response) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
@@ -84,5 +96,6 @@ module.exports = {
     getUserId,
     createUser,
     updateUser,
-    deleteUser
+    deleteUser,
+    search
 }

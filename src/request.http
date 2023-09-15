@@ -1,5 +1,7 @@
 GET http://localhost:5000/api/users
 
+GET http://localhost:5000/api/search/vidrio
+
 GET http://localhost:5000/api/users/:id
 
 POST http://localhost:5000/api/users/create
