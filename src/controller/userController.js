@@ -13,15 +13,15 @@ const getUser = async (req = request, res = response) => {
 }
 
 const getUserId = async (req = request, res = response) => {
-    const idOrName = req.params.idOrName;
-    db.get('SELECT * FROM rgbase WHERE id = ? OR nombre = ?',
-    [idOrName, idOrName],
+    const id = req.params.id;
+    db.get('SELECT * FROM rgbase WHERE id = ?',
+    [id],
     (err, rgbase) => {
         if (err) {
-            return res.status(500).json({ error: 'Usuario encontrado' });
+            return res.status(500).json({ error: 'Producto encontrado' });
           }
           if (!rgbase) {
-            return res.status(404).json({ message: 'Usuario no encontrado' });
+            return res.status(404).json({ message: 'Producto no encontrado' });
           }
           res.json(rgbase);
         }
@@ -30,17 +30,17 @@ const getUserId = async (req = request, res = response) => {
 
 const createUser = async (req = request, res = response) => {
     const errors = validationResult(req);
-    if (errors.isEmpty()) {
+    if (!errors.isEmpty()) {
         return res.status(400).json({ errors: "los campos no pueden estar vacios" });
       }
-    const { nombre, apellido, edad, fecha_nacimiento } = req.body;
-    db.run('INSERT INTO rgbase (nombre, apellido, edad, fecha_nacimiento) VALUES (?, ?, ?, ?)',
-        [nombre, apellido, edad, fecha_nacimiento],
+    const { producto, cliente, cantidad, valor_pagado, fecha_compra } = req.body;
+    db.run('INSERT INTO rgbase (producto, cliente, cantidad, valor_pagado, fecha_compra) VALUES (?, ?, ?, ?, ?)',
+        [producto, cliente, cantidad, valor_pagado, fecha_compra],
         function (err) {
             if (err) {
-                return res.status(500).json({ error: 'Error al agregar un nuevo usuario' });
+                return res.status(500).json({ error: 'Error al agregar un nuevo producto' });
             }
-            return res.json({ message: 'User created', userId: this.lastID });
+            return res.json({ message: 'Product created', userId: this.lastID });
         }
     );
 }
@@ -51,30 +51,30 @@ const updateUser = async (req = request, res = response) => {
         return res.status(400).json({ errors: "los campos no pueden estar vacios" });
       }
     const userId = req.params.id;
-    const {nombre, apellido, edad, fecha_nacimiento} = req.body;
-    db.run('UPDATE rgbase SET nombre = ?, apellido = ?, edad = ?, fecha_nacimiento = ? WHERE id = ?',
-    [nombre, apellido, edad, fecha_nacimiento, userId],
+    const {producto, cliente, cantidad, valor_pagado, fecha_compra} = req.body;
+    db.run('UPDATE rgbase SET producto = ?, cliente = ?, cantidad = ?, valor_pagado= ?, fecha_compra = ? WHERE id = ?',
+    [producto, cliente, cantidad, valor_pagado, fecha_compra, userId],
     (err) => {
         if(err){
             console.log(err);
-            return res.status(500).json({error:'No se pudo actualizar el usuario'});
+            return res.status(500).json({error:'No se pudo actualizar el producto'});
         }
-        res.json({message:'Usuario actualizado', changes: this.changes});
+        res.json({message:'Producto actualizado', changes: this.changes});
     }
     );
 }
 
 const deleteUser = async (req = request, res = response) => {
-    const idOrName = req.params.idOrName;
-    db.run('DELETE FROM rgbase WHERE id = ? OR nombre = ?',
-    [idOrName, idOrName],
+    const id = req.params.id;
+    db.run('DELETE FROM rgbase WHERE id = ?',
+    [id],
     (err) => {
         if(err){
             console.log(err);
             return res.status(500).json({error: 'Error, no se pudo realizar la operacion!'});
         }
-        console.log('borraste codigo', idOrName);
-        res.json({message:`Usuario con ID ${idOrName} borrado`, changes: this.changes})
+        console.log('borraste codigo', id);
+        res.json({message:`Usuario con ID ${id} borrado`, changes: this.changes})
     }
     );
 }

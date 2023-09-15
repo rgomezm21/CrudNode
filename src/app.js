@@ -22,10 +22,18 @@
  */
 const express = require('express');
 const { createTables } = require('./db')
+const cors = require('cors')
 
 const { userRoutes } = require('./routes/user.routes')
 const app = express();
-const PORT = 5000;
+const PORT = process.env.PORT || 5000;
+
+app.use(cors({
+    origin: 'http://localhost:3000',
+    methods: ['GET', 'POST', 'PUT', 'DELETE'], // Permitir métodos específicos
+    allowedHeaders: ['Content-Type', 'Authorization'], // Permitir encabezados personalizados
+    credentials: true, // Permitir el uso de credenciales (cookies, autenticación)
+  }));
 
 app.use(express.json())
 app.use(express.urlencoded({ extended: false }))

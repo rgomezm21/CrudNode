@@ -5,10 +5,10 @@ const { userValidation } = require('../middlewares/validateUser');
 
 const router = Router()
 router.get('/api/users', getUser);
-router.get('/api/users/:idOrName', getUserId)
-router.post('/api/users', userValidation, createUser)
-router.put('/api/users/:id', userValidation, updateUser);
-router.delete('/api/users/:idOrName', deleteUser)
+router.get('/api/users/:id', getUserId)
+router.post('/api/users/create', userValidation, createUser)
+router.put('/api/users/update/:id', userValidation, updateUser);
+router.delete('/api/users/eliminate/:id', deleteUser)
 
 
 module.exports = {

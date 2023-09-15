@@ -6,10 +6,11 @@ function createTables() {
     db.run(`
     CREATE TABLE IF NOT EXISTS rgbase(
         id INTEGER PRIMARY KEY AUTOINCREMENT,
-        nombre TEXT,
-        apellido TEXT,
-        edad INTEGER,
-        fecha_nacimiento DATE
+        producto TEXT,
+        cliente TEXT,
+        cantidad INTEGER,
+        valor_pagado INTEGER,
+        fecha_compra DATE
 
     )
 `);

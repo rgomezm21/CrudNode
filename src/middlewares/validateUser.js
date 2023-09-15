@@ -21,12 +21,13 @@ const validate = validations => {
 };
 
 const userValidation = validate([
-    body('nombre').isString()
-                  .notEmpty().withMessage('Nombre obligatorio'),
-    body('apellido').isString()
-                    .notEmpty().withMessage('Apellido obligatorio'),
-    body('edad').isInt({ min: 18 }).withMessage('Edad Obligatoria'),
-    body('fecha_nacimiento').isISO8601().withMessage('Fecha de nacimiento obligatoria'),
+    body('producto').isString()
+                  .notEmpty().withMessage('Producto obligatorio'),
+    body('cliente').isString()
+                    .notEmpty().withMessage('Cliente obligatorio'),
+    body('cantidad').isInt().withMessage('Cantidad Obligatoria'),
+    body('valor_pagado').isInt().withMessage('Valor_pagado Obligatorio'),
+    body('fecha_compra').isISO8601().withMessage('Fecha de compra obligatoria: AAAA/MM/DD'),
   ]);
 
   module.exports = {
