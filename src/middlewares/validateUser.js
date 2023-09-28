@@ -25,7 +25,7 @@ const userValidation = validate([
                   .notEmpty().withMessage('Producto obligatorio'),
     body('cliente').isString()
                     .notEmpty().withMessage('Cliente obligatorio'),
-    body('cantidad').isFloat().withMessage('Cantidad Obligatoria'),
+    body('cantidad').matches(/^\d+\.\d{3}$/).withMessage('Cantidad Obligatoria'),
     body('valor_pagado').isInt().withMessage('Valor_pagado Obligatorio'),
     body('fecha_compra').isISO8601().withMessage('Fecha de compra obligatoria: AAAA/MM/DD'),
   ]);
