@@ -8,7 +8,7 @@ function createTables() {
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         producto TEXT,
         cliente TEXT,
-        cantidad TEXT,
+        cantidad REAL,
         valor_pagado INTEGER,
         fecha_compra DATE
     )
