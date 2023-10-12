@@ -1,15 +1,15 @@
 const { Router } = require('express');
-const { getUser, getUserId, createUser, updateUser, deleteUser, search } = require('../controller/userController');
+const { search, getProduct, getProductId, createProduct, updateProduct, deleteProduct } = require('../controller/userController');
 const { userValidation } = require('../middlewares/validateUser');
 
 
 const router = Router()
-router.get('/api/users', getUser);
+router.get('/api/users', getProduct);
 router.get('/api/search/:search', search);
-router.get('/api/users/:id', getUserId)
-router.post('/api/users/create', userValidation, createUser)
-router.put('/api/users/update/:id', userValidation, updateUser);
-router.delete('/api/users/eliminate/:id', deleteUser)
+router.get('/api/users/:id', getProductId)
+router.post('/api/users/create', userValidation, createProduct)
+router.put('/api/users/update/:id', userValidation, updateProduct);
+router.delete('/api/users/eliminate/:id', deleteProduct)
 
 
 module.exports = {

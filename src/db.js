@@ -11,7 +11,6 @@ function createTables() {
         cantidad TEXT,
         valor_pagado INTEGER,
         fecha_compra DATE
-
     )
 `);
 }
