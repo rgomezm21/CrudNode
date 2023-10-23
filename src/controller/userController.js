@@ -92,11 +92,39 @@ const deleteProduct = async (req = request, res = response) => {
     );
 }
 
+
+const calculateMonthlyTotals = (rgbase, year, month) => {
+    const filteredData = rgbase.filter((item) => {
+        const itemDate = new Date(item.fecha_compra);
+        return itemDate.getFullYear() == year && itemDate.getMonth() == month - 1;
+    });
+
+    const totalQuantity = filteredData.reduce((total, item) => total + item.cantidad, 0);
+    const totalAmountPaid = filteredData.reduce((total, item) => total + item.valor_pagado, 0);
+
+    return { totalQuantity, totalAmountPaid };
+};
+
+const searchProductByMonth = async (req, res) => {
+    const { year, month } = req.params;
+
+    db.all('SELECT * FROM rgbase;', (err, rgbase) => {
+        if (err) {
+            return res.status(500).json({ error: 'Error al obtener los datos' });
+        }
+
+        const { totalQuantity, totalAmountPaid } = calculateMonthlyTotals(rgbase, year, month);
+
+        res.json({ totalQuantity, totalAmountPaid });
+    });
+};
+
 module.exports = {
     getProduct,
     getProductId,
     createProduct,
     updateProduct,
     deleteProduct,
-    search
+    search,
+    searchProductByMonth
 }
