@@ -119,6 +119,7 @@ const searchProductByMonth = async (req, res) => {
     });
 };
 
+
 module.exports = {
     getProduct,
     getProductId,
